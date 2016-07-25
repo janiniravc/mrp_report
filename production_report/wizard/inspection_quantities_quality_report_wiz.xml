@@ -8,8 +8,8 @@
 			<field name="arch" type="xml">
 			 	<form string="Inspection of Quantities/Quality Report" version="7.0">
                     <group col="4" colspan="4">
-<!--                         <field name="year_id" required="1"/> -->
-<!--                         <label string=""/> -->
+                        <separator string="Products"/><br/>
+                        <field name="product_ids" required="1" colspan="4" nolabel="1"/>
                     </group>
 					<footer>
                         <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>

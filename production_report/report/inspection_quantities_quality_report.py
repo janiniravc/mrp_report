@@ -34,8 +34,39 @@ class inspection_quantities_quality_report(report_sxw.rml_parse):
         super(inspection_quantities_quality_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_products': self._get_products,
+            'get_rejected_material': self._get_rejected_material,
         })
-    
+
+    def _get_rejected_material(self, product):
+        rejected_lst = []
+        cr = self.cr
+        uid = self.uid
+        sc_mrp_requirement_obj = pooler.get_pool(self.cr.dbname).get('sc.mrp.material.product')
+        mrp_requirement_ids = sc_mrp_requirement_obj.search(cr, uid, [('material_list_id.product_name','=', product.name)])
+        for mrp_requirement_brw in sc_mrp_requirement_obj.browse(cr, uid, mrp_requirement_ids):
+            vals = {
+                'part_no': mrp_requirement_brw.part_no or '',
+                'part_ar_name': mrp_requirement_brw.part_name_ar or '',
+                'part_name': str(' [' + mrp_requirement_brw.material_id.product_id.default_code + '] ' + mrp_requirement_brw.material_id.name),
+                'qty': mrp_requirement_brw.product_qty,
+                'lot_no': '?',
+                'reason': '',
+            }
+            rejected_lst.append(vals)
+        return rejected_lst
+
+    def _get_products(self, form):
+        cr = self.cr
+        uid = self.uid
+        context = {}
+        product_product_obj = pooler.get_pool(self.cr.dbname).get('product.product')
+        production_lst = []
+        production_ids = product_product_obj.search(cr, uid, [('id','in', form.get('product_ids',[]))])
+        
+        for production_brw in product_product_obj.browse(cr, uid, production_ids):
+            production_lst.append(production_brw)
+        return production_lst
     
 report_sxw.report_sxw('report.inspection_quantities_quality_report','inspection.quantities.quality.report.wiz','production_report/report/inspection_quantities_quality_report.mako',parser=inspection_quantities_quality_report, header=False)
 

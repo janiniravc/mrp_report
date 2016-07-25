@@ -2,11 +2,11 @@
 <openerp>
 	<data>
 
-		<record model="ir.ui.view" id="view_rejected_materials_report_wiz">
-			<field name="name">rejected.materials.report.wiz</field>
-			<field name="model">rejected.materials.report.wiz</field>
+		<record model="ir.ui.view" id="view_cost_of_business_audits_report_wiz">
+			<field name="name">cost.of.business.audits.report.wiz</field>
+			<field name="model">cost.of.business.audits.report.wiz</field>
 			<field name="arch" type="xml">
-			 	<form string="Rejected Materials Report" version="7.0">
+			 	<form string="Cost of Businees Audits Report" version="7.0">
                     <group col="4" colspan="4">
                         <field name="start_date" required="1"/>
                         <field name="end_date" required="1"/>
@@ -19,17 +19,17 @@
 			</field>
 		</record>
 		
-		<record model="ir.actions.act_window" id="action_rejected_materials_report_wiz">
-			<field name="name">Rejected Materials Report</field>
-			<field name="res_model">rejected.materials.report.wiz</field>
+		<record model="ir.actions.act_window" id="action_cost_of_business_audits_report_wiz">
+			<field name="name">Cost of Business Audits Report</field>
+			<field name="res_model">cost.of.business.audits.report.wiz</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">form</field>
 			<field name="target">new</field>
 		</record>
 
-		<menuitem name="Rejected Materials Report" 
+		<menuitem name="Cost of Business Audits Report" 
 				  parent="menu_production_report" 
-				  id="menu_rejected_materials_report_wiz" 
-				  action="action_rejected_materials_report_wiz"/>
+				  id="menu_cost_of_business_audits_report_wiz" 
+				  action="action_cost_of_business_audits_report_wiz"/>
 	</data>
 </openerp>

@@ -28,27 +28,15 @@ from openerp.tools import to_xml
 from datetime import datetime
 
 
-class ecn_report(report_sxw.rml_parse):
+class production_efficiency_report(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context):
-        super(ecn_report, self).__init__(cr, uid, name, context=context)
+        super(production_efficiency_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
-            'get_line': self._get_line,
         })
+    
+    
+report_sxw.report_sxw('report.production_efficiency_report','production.efficiency.report.wiz','production_report/report/production_efficiency_report.mako',parser=production_efficiency_report, header=False)
 
-    def _get_line(self, form):
-        cr = self.cr
-        uid = self.uid
-        context = {}
-        sc_mrp_bom_change_obj = pooler.get_pool(self.cr.dbname).get('sc.mrp.bom.change')
-        date_from = datetime.strptime(form['start_date'], '%Y-%m-%d')
-        date_to = datetime.strptime(form['end_date'], '%Y-%m-%d')
-        bom_change_details = []
-        bom_change_ids = sc_mrp_bom_change_obj.search(cr, uid, [('date','>=', date_from),('date','<=', date_to)])
-        
-        for sc_mrp_bom_change in sc_mrp_bom_change_obj.browse(cr, uid, bom_change_ids):
-            bom_change_details.append(sc_mrp_bom_change)
-        return bom_change_details
 
-report_sxw.report_sxw('report.ecn_report','ecn.report.wiz','production_report/report/ecn_report.mako',parser=ecn_report, header=False)

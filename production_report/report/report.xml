@@ -219,5 +219,27 @@
             report_type="webkit"
             webkit_header="maintenance_report.default_header_landscape"
             />
+            
+        <report
+            auto="False"
+            id="production_efficiency_report"
+            model="production.efficiency.report.wiz"
+            name="production_efficiency_report"
+            file="production_report/report/production_efficiency_report.mako"
+            string="Production Efficiency Report"
+            report_type="webkit"
+            webkit_header="maintenance_report.default_header_landscape"
+            />
+            
+        <report
+            auto="False"
+            id="cost_of_business_audits_report"
+            model="cost.of.business.audits.report.wiz"
+            name="cost_of_business_audits_report"
+            file="production_report/report/cost_of_business_audits_report.mako"
+            string="Cost of Business Audits Report"
+            report_type="webkit"
+            webkit_header="maintenance_report.default_header_landscape"
+            />
 	</data>
 </openerp>
