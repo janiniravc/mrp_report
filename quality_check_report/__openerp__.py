@@ -40,6 +40,7 @@ To Generate Quality Check (QC) Reports in OpenERP
              'report/report.xml',
              'wizard/daily_quality_report_wiz.xml',
              'wizard/weekly_quality_report_wiz.xml',
+             'wizard/torque_readings_report_wiz.xml',
         
     ],
     'application': True,

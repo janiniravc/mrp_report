@@ -8,8 +8,11 @@
 			<field name="arch" type="xml">
 			 	<form string="Details of Implementation Work Order" version="7.0">
                     <group col="4" colspan="4">
-<!--                         <field name="year_id" required="1"/> -->
-<!--                         <label string=""/> -->
+                        <field name="start_date" required="1"/>
+                        <field name="end_date" required="1"/>
+                    </group>
+                    <group col="4" colspan="4">
+                    	<field name="product_ids"/>
                     </group>
 					<footer>
                         <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>

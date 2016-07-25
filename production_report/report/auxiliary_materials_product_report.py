@@ -34,9 +34,29 @@ class auxiliary_materials_product_report(report_sxw.rml_parse):
         super(auxiliary_materials_product_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_data':self._get_data,
         })
     
-    
+    def _get_data(self, product_id, station_ids, start_date, end_date):
+        mrp_obj = self.pool.get('mrp.production')
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%d 23:59:59")
+        mrp_ids = mrp_obj.search(self.cr, self.uid, [('date_planned','>=',start_date),('date_planned','<=',end_date),
+                                                     ('product_id','=',product_id)])
+        data_lst =[]
+        
+        for mrp in mrp_obj.browse(self.cr, self.uid, mrp_ids):
+            for station in mrp.workcenter_lines:
+                if station.workcenter_id.auxiliary_material_line_ids:
+                    data_lst.append({'date':mrp.date_planned, 'product': '[' +mrp.product_id.default_code+'] '+ mrp.product_id.name,
+                                     'station': station.name, 
+                                     'material_obj_lst': station.workcenter_id.auxiliary_material_line_ids
+                                     })
+                        
+        return data_lst
+        
+        
+        
 report_sxw.report_sxw('report.auxiliary_materials_product_report','auxiliary.materials.product.report.wiz','production_report/report/auxiliary_materials_product_report.mako',parser=auxiliary_materials_product_report, header=False)
 
 

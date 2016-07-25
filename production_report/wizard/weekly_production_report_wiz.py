@@ -29,13 +29,30 @@ class weekly_production_report_wiz(osv.osv_memory):
     _columns = {
         'start_date': fields.date('Start Date'),
         'end_date': fields.date('End Date'),
+        'report_is': fields.selection([('yearly','Yearly'),('weekly','Weekly'),('daily','Daily')],'Report'),
     }
     
     _defaults = {
             'start_date': lambda *a: time.strftime('%Y-%m-01'),
             'end_date': lambda *a: time.strftime('%Y-%m-%d'),
+            'report_is': 'weekly'
     }
 
+    def onchange_report(self, cr, uid, ids, report_is, context=None):
+        res = {'value':{}}
+        if report_is == 'daily':
+            start_date = time.strftime('%Y-%m-%d')
+            end_date = time.strftime('%Y-%m-%d')
+        elif report_is == 'yearly':
+            start_date = time.strftime('%Y-01-01')
+            end_date = time.strftime('%Y-12-31')
+        else:
+            start_date = time.strftime('%Y-%m-01')
+            end_date = time.strftime('%Y-%m-%d')
+        res['value'].update({'start_date':start_date, 'end_date':end_date})
+        return res
+            
+            
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
            context = {}
@@ -48,6 +65,6 @@ class weekly_production_report_wiz(osv.osv_memory):
         return {
             'type': 'ir.actions.report.xml',
             'report_name': 'weekly_production_report',
-            'name': "Weekly Production Report",
+            'name': "Production Report",
             'datas': datas,
         }

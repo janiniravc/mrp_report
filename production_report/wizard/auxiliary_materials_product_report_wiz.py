@@ -26,15 +26,23 @@ from openerp.tools.translate import _
 class auxiliary_materials_product_report_wiz(osv.osv_memory):
     _name = 'auxiliary.materials.product.report.wiz'
     
-#     _columns = {
-#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
-#     }
+    _columns = {
+        'start_date': fields.date('Start Date'),
+        'end_date': fields.date('End Date'),
+        'product_id': fields.many2one('product.product', 'product'),
+        'station_ids': fields.many2many('mrp.workcenter','station_auxiliary_report_wizard_rel','wiz_id','station_id','station')
+    }
     
+    _defaults = {
+            'start_date': lambda *a: time.strftime('%Y-%m-01'),
+            'end_date': lambda *a: time.strftime('%Y-%m-%d'),
+    }
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
            context = {}
         data = self.read(cr, uid, ids, context=context)[0]
+        
         datas = {
              'ids': context.get('active_ids',[]),
              'model': 'auxiliary.materials.product.report.wiz',

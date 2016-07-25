@@ -22,19 +22,38 @@
 import time
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
+from datetime import datetime
 
 class inspection_kd_materials_report_wiz(osv.osv_memory):
     _name = 'inspection.kd.materials.report.wiz'
     
-#     _columns = {
-#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
-#     }
+    _columns = {
+        'product_id': fields.many2one('product.product','Product'),
+        'start_date': fields.date('From Date'),
+        'end_date':fields.date('To Date')
+    }
+    
+    _defaults = {
+            'start_date': lambda *a: time.strftime('%Y-%m-01'),
+            'end_date': lambda *a: time.strftime('%Y-%m-%d'),
+    }
+
     
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:
            context = {}
         data = self.read(cr, uid, ids, context=context)[0]
+        mrp_obj = self.pool.get('mrp.production')
+        start_date = datetime.strptime(data['start_date'], "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
+        end_date = datetime.strptime(data['end_date'], "%Y-%m-%d").strftime("%Y-%m-%d 23:59:59")
+        mrp_ids = mrp_obj.search(cr, uid, [('date_planned','>=',start_date),
+                                           ('date_planned','<=',end_date),
+                                           ('product_id','=',data['product_id'][0])],context=context)
+        if not mrp_ids:
+            raise osv.except_osv(_('Warning!'), _("No Record Found With Selected Filters."))
+        
+        data['mrp_ids'] = mrp_ids
         datas = {
              'ids': context.get('active_ids',[]),
              'model': 'inspection.kd.materials.report.wiz',

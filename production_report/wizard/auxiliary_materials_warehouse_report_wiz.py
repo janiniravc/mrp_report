@@ -25,10 +25,10 @@ from openerp.tools.translate import _
 
 class auxiliary_materials_warehouse_report_wiz(osv.osv_memory):
     _name = 'auxiliary.materials.warehouse.report.wiz'
-    
-#     _columns = {
-#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
-#     }
+     
+    _columns = {
+        'product_ids': fields.many2many('product.product','prod_auxiliary_maerial_warehouse_wiz','product_id','wiz_id','Products'),
+    }
     
 
     def print_report(self, cr, uid, ids, context=None):

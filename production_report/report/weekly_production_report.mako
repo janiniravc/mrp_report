@@ -13,13 +13,13 @@
         }
         ${css}
     </style>
-    <title>Weekly Production Report</title>
+    <title>Production Report</title>
     
 </head>
 	<body>
 		<%setLang(user.lang)%>
 		<h2 align="center"><b><u>The Planning and Production Control</u></b></h2>
-		<h2 align="center"><b><u>Weekly Production Report</u></b></h2>
+		<h2 align="center"><b><u>${data['form']['report_is'].capitalize()} Production Report</u></b></h2>
 		<br/>
 		<table width="100%">
 			
@@ -50,19 +50,26 @@
 			</tr>
 			
 			%for factory in get_factory():
-                <tr height="30px">
-                    <td align="left" id="tableheading">${factory.name or ''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                </tr>
+				<% result = get_values(factory,data['form']['start_date'],data['form']['end_date']) %>
+				<% i = 0 %>
+				%for product in result.keys():
+	                <tr height="30px">
+	                	%if i == 0:
+	                    	<td align="left" rowspan=${len(result.keys())} id="tableheading">${factory.name or ''}</td>
+	                    %endif
+	                    <td align="left" id="tableheading">${result[product]['code']}</td>
+	                    <td align="left" id="tableheading">${result[product]['planned']}</td>
+	                    <td align="left" id="tableheading">${result[product]['done']}</td>
+	                    <td align="left" id="tableheading">${result[product]['warehouse']}</td>
+	                    <td align="left" id="tableheading">${result[product]['production']}</td>
+	                    <td align="left" id="tableheading">${result[product]['quality']}</td>
+	                    <td align="left" id="tableheading">${result[product]['audits']}</td>
+	                    <td align="left" id="tableheading">${result[product]['pdi']}</td>
+	                    <td align="left" id="tableheading">${result[product]['conformity']}</td>
+	                    <td align="left" id="tableheading">${result[product]['total']}</td>
+	                </tr>
+	                <% i = i+1 %>
+	            %endfor
             %endfor
             
             <tr height="30px">

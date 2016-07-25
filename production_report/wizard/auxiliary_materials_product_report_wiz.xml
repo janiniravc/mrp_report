@@ -8,8 +8,13 @@
 			<field name="arch" type="xml">
 			 	<form string="Auxiliary Materials Product per Station report" version="7.0">
                     <group col="4" colspan="4">
-<!--                         <field name="year_id" required="1"/> -->
-<!--                         <label string=""/> -->
+                    	<field name="start_date" required="1"/>
+                    	<field name="end_date" required="1"/>
+                        <field name="product_id" required="1"/>
+                        <label string=""/>
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="station_ids" required="1"/>
                     </group>
 					<footer>
                         <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>

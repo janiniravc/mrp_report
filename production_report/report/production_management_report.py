@@ -28,21 +28,14 @@ from openerp.tools import to_xml
 from datetime import datetime
 
 
-class inspection_kd_materials_report(report_sxw.rml_parse):
+class production_management_report(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context):
-        super(inspection_kd_materials_report, self).__init__(cr, uid, name, context=context)
+        super(production_management_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
-            'get_details':self._get_details,
         })
-        
-    def _get_details(self, mrp_ids):
-        mrp_obj = self.pool.get('mrp.production')
-        mrp_brw_ids = mrp_obj.browse(self.cr, self.uid, mrp_ids)
-        return mrp_brw_ids
-    
-    
-report_sxw.report_sxw('report.inspection_kd_materials_report','inspection.kd.materials.report.wiz','production_report/report/inspection_kd_materials_report.mako',parser=inspection_kd_materials_report, header=False)
 
 
+
+report_sxw.report_sxw('report.production_management_report','production.management.report.wiz','production_report/report/production_management_report.mako',parser=production_management_report, header=False)

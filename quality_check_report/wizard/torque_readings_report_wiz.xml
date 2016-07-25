@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_torque_readings_report_wiz">
+			<field name="name">torque.readings.report.wiz</field>
+			<field name="model">torque.readings.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="Torque Readings Report" version="7.0">
+<!--                     <group col="4" colspan="4"> -->
+<!--                         <field name="start_date" required="1"/> -->
+<!--                         <field name="end_date" required="1"/> -->
+<!--                     </group> -->
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_torque_readings_report_wiz">
+			<field name="name">Torque Readings Report</field>
+			<field name="res_model">torque.readings.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Torque Readings Report" 
+				  parent="menu_quality_check_report" 
+				  id="menu_torque_readings_report_wiz" 
+				  action="action_torque_readings_report_wiz"/>
+	</data>
+</openerp>

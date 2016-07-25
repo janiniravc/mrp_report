@@ -21,6 +21,17 @@
             string="Weekly Quality Report"
             report_type="webkit"
             />
+            
+            
+       <report
+            id="torque_readings_report"
+            model="torque.readings.report.wiz"
+            name="torque_readings_report"
+            file="quality_check_report/report/torque_readings_report.mako"
+            string="Torque Readings Report"
+            report_type="webkit"
+            webkit_header="maintenance_report.default_header_landscape"
+            />
 		
 		
 	</data>

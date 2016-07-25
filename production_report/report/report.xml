@@ -7,7 +7,7 @@
             model="weekly.production.report.wiz"
             name="weekly_production_report"
             file="production_report/report/weekly_production_report.mako"
-            string="Weekly Production Report"
+            string="Production Report(Daily/Weekly/Yearly)"
             report_type="webkit"
             webkit_header="maintenance_report.default_header_landscape"
             />
@@ -198,26 +198,61 @@
             webkit_header="maintenance_report.default_header_landscape"
             />
             
-            <report
-            auto="False"
-            id="implementation_orders_factory_work_report"
-            model="implementation.orders.factory.work.report.wiz"
-            name="implementation_orders_factory_work_report"
-            file="production_report/report/implementation_orders_factory_work_report.mako"
-            string="Implementation of the orders of the Factory Work"
-            report_type="webkit"
-            webkit_header="maintenance_report.default_header_landscape"
-            />
+		<report
+			auto="False"
+			id="implementation_orders_factory_work_report"
+			model="implementation.orders.factory.work.report.wiz"
+			name="implementation_orders_factory_work_report"
+			file="production_report/report/implementation_orders_factory_work_report.mako"
+			string="Implementation of the orders of the Factory Work"
+			report_type="webkit"
+			webkit_header="maintenance_report.default_header_landscape"
+			/>
             
-            <report
-            auto="False"
-            id="unpacking_and_quality_report"
-            model="unpacking.and.quality.report.wiz"
-            name="unpacking_and_quality_report"
-            file="production_report/report/unpacking_and_quality_report.mako"
-            string="Unpacking And Quality Report"
-            report_type="webkit"
-            webkit_header="maintenance_report.default_header_landscape"
-            />
+		<report
+			auto="False"
+			id="unpacking_and_quality_report"
+			model="unpacking.and.quality.report.wiz"
+			name="unpacking_and_quality_report"
+			file="production_report/report/unpacking_and_quality_report.mako"
+			string="Unpacking And Quality Report"
+			report_type="webkit"
+			webkit_header="maintenance_report.default_header_landscape"
+			/>
+			
+		<report
+			auto="False"
+			id="exploitation_prod_capacities_oee_report"
+			model="exploitation.prod.capacities.oee.wiz"
+			name="exploitation_prod_capacities_oee_report"
+			file="production_report/report/exploitation_prod_capacities_oee_report.mako"
+			string="Report Exploitation of Production Capacities OEE"
+			report_type="webkit"
+			webkit_header="maintenance_report.default_header_landscape"
+			/>
+			
+		<report
+			auto="False"
+			id="exploitation_prod_capacities_team_report"
+			model="exploitation.prod.capacities.team.wiz"
+			name="exploitation_prod_capacities_team_report"
+			file="production_report/report/exploitation_prod_capacities_team_report.mako"
+			string="Report Exploitation of Production Capacities Team"
+			report_type="webkit"
+			webkit_header="maintenance_report.default_header_landscape"
+			/>
+			
+		<report
+			auto="False"
+			id="production_management_report"
+			model="production.management.report.wiz"
+			name="production_management_report"
+			file="production_report/report/production_management_report.mako"
+			string="Production Management Report"
+			report_type="webkit"
+			webkit_header="maintenance_report.default_header_landscape"
+			/>
+            
+
 	</data>
 </openerp>

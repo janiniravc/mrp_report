@@ -34,9 +34,37 @@ class details_implementation_workorder_report(report_sxw.rml_parse):
         super(details_implementation_workorder_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_department':self._get_department,
+            'get_production_date':self._get_production_date,
+            'get_job_order_brw':self._get_job_order_brw,
         })
+        
+    def _get_job_order_brw(self, job_order_ids):
+        job_order_obj = self.pool.get('sc.mrp.daily.job.order')
+        job_order_brw = job_order_obj.browse(cr, uid, job_order_ids, context=context)
+        return job_order_brw
     
     
+    def _get_department(self, factory_brw_ids):
+        departments_lst = []
+        factory_lst = []
+        data = {}
+        for factory in factory_brw_ids:
+            if factory.department_id and factory.department_id.name not in departments_lst:
+                departments_lst.append(factory.department_id.name)
+            factory_lst.append(factory.name)
+        data['department'] = departments_lst and ', '.join(departments_lst) or ''
+        data['factory'] = factory_lst and ', '.join(factory_lst) or ''
+        return data
+    
+    def _get_production_date(self, job_order_brw):
+        mrp_obj = self.pool.get('mrp.production')
+        mrp_ids = mrp_obj.search(self.cr, self.uid, [('daily_job_order_id','=',job_order_brw.daily_job_order_no)])
+        if mrp_ids:
+            mrp_brw = mrp_obj.browse(self.cr, self.uid, mrp_ids[0])
+            return mrp_brw.date_planned
+        return ''
+        
 report_sxw.report_sxw('report.details_implementation_workorder_report','details.implementation.workorder.report.wiz','production_report/report/details_implementation_workorder_report.mako',parser=details_implementation_workorder_report, header=False)
 
 

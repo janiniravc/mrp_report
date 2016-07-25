@@ -31,11 +31,16 @@ from datetime import datetime
 class number_produced_units_report(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context):
-        print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         super(number_produced_units_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_basic_detail':self._get_basic_detail
         })
+        
+    def _get_basic_detail(self, data):
+        mrp_obj = self.pool.get('mrp.production')
+        mrp_brw_ids = mrp_obj.browse(self.cr, self.uid, data['mrp_ids'])
+        return mrp_brw_ids
     
     
 report_sxw.report_sxw('report.number_produced_units_report','number.produced.units.report.wiz','production_report/report/number_of_produced_units_report.mako',parser=number_produced_units_report, header=False)

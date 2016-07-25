@@ -35,6 +35,8 @@ class weekly_production_report(report_sxw.rml_parse):
         self.localcontext.update({
             'time': time,
             'get_factory':self._get_factory,
+            'get_values':self._get_values,
+            
         })
     
     def _get_factory(self):
@@ -44,6 +46,34 @@ class weekly_production_report(report_sxw.rml_parse):
         fectory_brw_ids = factory_obj.browse(self.cr, self.uid, fectory_ids)
         return fectory_brw_ids
     
+    def _get_values(self, factory_brw, start_date, end_date):
+        mrp_obj = self.pool.get('mrp.production')
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").strftime("%Y-%m-%d 23:59:59")
+        mrp_ids = mrp_obj.search(self.cr, self.uid, [('date_planned','>=',start_date),('date_planned','<=',end_date),
+                                                     ('routing_id.factory_id','=',factory_brw.id)])
+        data_dict = {}
+        for mrp in mrp_obj.browse(self.cr, self.uid, mrp_ids):
+            if not data_dict.get(mrp.product_id.id, False):
+                data_dict.update(
+                  {mrp.product_id.id:
+                         {'code':mrp.product_id.default_code or False,'planned':0.0 , 'done':0.0, 'warehouse':0.0, 
+                          'production':0.0, 'quality':'?', 'audits':'?','pdi':'?','conformity':'?', 'total':0.0
+                        }
+                   })
+            
+            data_dict[mrp.product_id.id].update({'planned': data_dict[mrp.product_id.id]['planned'] + mrp.product_qty })
+            if mrp.state == 'done':
+                data_dict[mrp.product_id.id].update({'done': data_dict[mrp.product_id.id]['done'] + mrp.product_qty })
+            if mrp.state in ('confirmed','ready'):
+                data_dict[mrp.product_id.id].update({'warehouse': data_dict[mrp.product_id.id]['warehouse'] + mrp.product_qty })
+                data_dict[mrp.product_id.id].update({'total': data_dict[mrp.product_id.id]['total'] + mrp.product_qty })
+            if mrp.state == 'in_production':
+                data_dict[mrp.product_id.id].update({'production': data_dict[mrp.product_id.id]['production'] + mrp.product_qty })
+                data_dict[mrp.product_id.id].update({'total': data_dict[mrp.product_id.id]['total'] + mrp.product_qty })
+                
+        return data_dict   
+                
 report_sxw.report_sxw('report.weekly_production_report','weekly.production.report.wiz','production_report/report/weekly_production_report.mako',parser=weekly_production_report, header=False)
 
 

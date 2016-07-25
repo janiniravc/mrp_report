@@ -27,7 +27,7 @@ class planning_production_capacity_report_wiz(osv.osv_memory):
     _name = 'planning.production.capacity.report.wiz'
     
     _columns = {
-        'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
+        'year_id': fields.many2one('account.fiscalyear','Year'),
     }
     
 
@@ -35,6 +35,12 @@ class planning_production_capacity_report_wiz(osv.osv_memory):
         if context is None:
            context = {}
         data = self.read(cr, uid, ids, context=context)[0]
+        planning_obj = self.pool.get('mrp.production.planning')
+        planning_ids = planning_obj.search(cr, uid, [('current_year','=',data['year_id'][0])],context=context)
+        if not planning_ids:
+            raise osv.except_osv(_('Warning!'), _("No Record Found With Selected Filters."))
+        data['planning_ids'] = planning_ids
+        
         datas = {
              'ids': context.get('active_ids',[]),
              'model': 'planning.production.capacity.report.wiz',

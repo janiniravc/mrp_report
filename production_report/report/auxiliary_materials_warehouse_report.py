@@ -34,8 +34,14 @@ class auxiliary_materials_warehouse_report(report_sxw.rml_parse):
         super(auxiliary_materials_warehouse_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_details':self._get_details,
         })
     
+    def _get_details(self, product_ids):
+        auxiliary_obj = self.pool.get('sc.mrp.workcenter.auxiliary.material')
+        auxiliary_ids = auxiliary_obj.search(self.cr, self.uid, [('product_id','in', product_ids)])
+        auxiliary_brw_ids = auxiliary_obj.browse(self.cr, self.uid, auxiliary_ids)
+        return auxiliary_brw_ids
     
 report_sxw.report_sxw('report.auxiliary_materials_warehouse_report','auxiliary.materials.warehouse.report.wiz','production_report/report/auxiliary_materials_warehouse_report.mako',parser=auxiliary_materials_warehouse_report, header=False)
 
