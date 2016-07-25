@@ -23,12 +23,12 @@ import time
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
-class inspection_quantities_quality_report_wiz(osv.osv_memory):
-    _name = 'inspection.quantities.quality.report.wiz'
+class monthly_quality_report_wiz(osv.osv_memory):
+    _name = 'monthly.quality.report.wiz'
     
-    _columns = {
-        'product_ids': fields.many2many('product.product','wiz_inspection_quality_product_rel','wiz_id','product_id','Products'),
-    }
+#     _columns = {
+#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
+#     }
     
 
     def print_report(self, cr, uid, ids, context=None):
@@ -37,12 +37,12 @@ class inspection_quantities_quality_report_wiz(osv.osv_memory):
         data = self.read(cr, uid, ids, context=context)[0]
         datas = {
              'ids': context.get('active_ids',[]),
-             'model': 'inspection.quantities.quality.report.wiz',
+             'model': 'monthly.quality.report.wiz',
              'form': data,
         }
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'inspection_quantities_quality_report',
-            'name': "Inspection of Quantities/quality Report",
+            'report_name': 'monthly_quality_report',
+            'name': "monthly QUALITY REPORT",
             'datas': datas,
         }

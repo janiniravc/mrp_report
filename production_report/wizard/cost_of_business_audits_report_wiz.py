@@ -23,11 +23,17 @@ import time
 from openerp.osv import osv, fields
 from openerp.tools.translate import _
 
-class inspection_quantities_quality_report_wiz(osv.osv_memory):
-    _name = 'inspection.quantities.quality.report.wiz'
+class cost_of_business_audits_report_wiz(osv.osv_memory):
+    _name = 'cost.of.business.audits.report.wiz'
     
     _columns = {
-        'product_ids': fields.many2many('product.product','wiz_inspection_quality_product_rel','wiz_id','product_id','Products'),
+        'start_date': fields.date('Start Date'),
+        'end_date': fields.date('End Date'),
+    }
+     
+    _defaults = {
+            'start_date': lambda *a: time.strftime('%Y-%m-01'),
+            'end_date': lambda *a: time.strftime('%Y-%m-%d'),
     }
     
 
@@ -37,12 +43,12 @@ class inspection_quantities_quality_report_wiz(osv.osv_memory):
         data = self.read(cr, uid, ids, context=context)[0]
         datas = {
              'ids': context.get('active_ids',[]),
-             'model': 'inspection.quantities.quality.report.wiz',
+             'model': 'cost.of.business.audits.report.wiz',
              'form': data,
         }
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'inspection_quantities_quality_report',
-            'name': "Inspection of Quantities/quality Report",
+            'report_name': 'cost_of_business_audits_report',
+            'name': "Cost of Business audits Report",
             'datas': datas,
         }

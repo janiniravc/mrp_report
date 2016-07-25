@@ -20,15 +20,15 @@
 		<%setLang(user.lang)%>
 		<h2 align="center"><b><u>Report of the Rejected Materials in Production Line</u></b></h2>
 		<br/>
-		<br/>
+		%for rec_data in get_line(data['form']):
 		<table width="100%" cellspacing="0" cellpadding="4">
 			<tr height="30px">
 				<td width="5%" align="right" id="tableheading"><b>${_("Date:")}</b></td>
-				<td width="15%" align="left" id="tableheading"><b>${_("")}</b></td>
+				<td width="15%" align="left" id="tableheading"><b>${(formatLang(rec_data['mrp_date'],date=True))}</b></td>
 				<td width="20%" align="left" id="tableheading"><b>${_("Lot No:")}</b></td>
-				<td width="20%" align="left" id="tableheading"><b>${_(" ")}</b></td>
+				<td width="20%" align="left" id="tableheading"><b>${rec_data.get('lot_no','')}</b></td>
 				<td width="10%" align="left" id="tableheading"><b>${_("Product name:")}</b></td>
-				<td width="30%" align="left" id="tableheading"><b>${_("")}</b></td>
+				<td width="30%" align="left" id="tableheading"><b>${rec_data.get('product_name','')}</b></td>
 			</tr>
 		</table>
 		<br/>
@@ -51,25 +51,26 @@
 				<td width="13%" align="left" id="tableheading"><b>${_("Reason")}</b></td>
 				<td width="13%" align="left" id="tableheading"><b>${_("Station")}</b></td>
 			</tr>
-			
-			%for i in range(5):
-				<% cnt = i+1 %>
+			<% cnt = 0 %>
+			%for rejected_data in rec_data.get('line_vals',[]):
+				<% cnt += 1 %>
                 <tr height="20px">
                     <td align="right" id="tableheading">${cnt}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
-                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('form_no','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('vin_no','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('part_no','')}</td>
+                    <td align="left" id="tableheading"><div>${rejected_data.get('part_name_ar','')}</div> ${rejected_data.get('part_name','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('part_qty',0)}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('part_lot_no','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('reason','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('station','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('place_compensation','')}</td>
+                    <td align="left" id="tableheading">${rejected_data.get('kd_material','')}</td>
                 </tr>
             %endfor
 		<table>
 		<br>
+		%endfor
         <table width="100%" cellspacing="0" cellpadding="4">
 			<tr height="30px">
 				<td align="right" id="tableheading"><b>${_("* With the possibility of comparing the amendments between different LOTs per product")}</b></td>

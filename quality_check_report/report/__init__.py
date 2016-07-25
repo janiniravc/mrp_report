@@ -21,5 +21,8 @@
 import daily_quality_report
 import weekly_quality_report
 import torque_readings_report
+import monthly_quality_report
+import notes_quality_report
+import quality_checklist_each_station_report
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

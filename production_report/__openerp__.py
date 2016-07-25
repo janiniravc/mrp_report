@@ -62,6 +62,8 @@ To Generate Production report in OpenERP
              'wizard/exploitation_prod_capacities_oee_wiz.xml',
              'wizard/exploitation_prod_capacities_team_wiz.xml',
              'wizard/production_management_report_wiz.xml',
+             'wizard/production_efficiency_report_wiz.xml',
+             'wizard/cost_of_business_audits_report_wiz.xml',
         
     ],
     'application': True,

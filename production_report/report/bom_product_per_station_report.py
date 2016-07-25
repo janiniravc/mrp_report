@@ -34,9 +34,23 @@ class bom_product_per_station_report(report_sxw.rml_parse):
         super(bom_product_per_station_report, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
+            'get_line': self._get_line,
         })
     
-    
+    def _get_line(self, form):
+        cr = self.cr
+        uid = self.uid
+        context = {}
+        mrp_production_obj = pooler.get_pool(self.cr.dbname).get('mrp.production')
+        date_from = datetime.strptime(form['start_date'], '%Y-%m-%d').strftime("%Y-%m-%d 00:00:00")
+        date_to = datetime.strptime(form['end_date'], '%Y-%m-%d').strftime("%Y-%m-%d 23:59:59")
+        mrp_production_lst = []
+        bom_change_ids = mrp_production_obj.search(cr, uid, [('date_planned','>=', date_from),('date_planned','<=', date_to)])
+        
+        for sc_mrp_bom_change in mrp_production_obj.browse(cr, uid, bom_change_ids):
+            mrp_production_lst.append(sc_mrp_bom_change)
+        return mrp_production_lst
+
 report_sxw.report_sxw('report.bom_product_per_station_report','bom.product.per.station.report.wiz','production_report/report/bom_product_per_station_report.mako',parser=bom_product_per_station_report, header=False)
 
 

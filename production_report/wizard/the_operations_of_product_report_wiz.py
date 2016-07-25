@@ -26,10 +26,10 @@ from openerp.tools.translate import _
 class operations_of_product_report_wiz(osv.osv_memory):
     _name = 'operations.of.product.report.wiz'
     
-#     _columns = {
-#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
-#     }
-    
+    _columns = {
+        'product_ids': fields.many2many('product.product', 'product_operation_report_wizard_rel', 'wiz_id' , 'product_id', 'Product'),
+        'workcenter_ids': fields.many2many('mrp.workcenter', 'workcenter_operation_report_wizard_rel', 'wiz_id' , 'workcenter_id', 'Work station'),
+    }
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:

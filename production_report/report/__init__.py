@@ -41,6 +41,7 @@ import unpacking_and_quality_report
 import exploitation_prod_capacities_oee_report
 import exploitation_prod_capacities_team_report
 import production_management_report
-
+import production_efficiency_report
+import cost_of_business_audits_report
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
