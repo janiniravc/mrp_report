@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_weekly_production_report_wiz">
+			<field name="name">weekly.production.report.wiz</field>
+			<field name="model">weekly.production.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="Weekly Production Report" version="7.0">
+                    <group col="4" colspan="4">
+                        <field name="start_date" required="1"/>
+                        <field name="end_date" required="1"/>
+                    </group>
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_weekly_production_report_wiz">
+			<field name="name">Weekly Production Report</field>
+			<field name="res_model">weekly.production.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Weekly Production Report" 
+				  parent="menu_production_report" 
+				  id="menu_weekly_production_report_wiz" 
+				  action="action_weekly_production_report_wiz"/>
+	</data>
+</openerp>

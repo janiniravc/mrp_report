@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_production_status_input_sales_report_wiz">
+			<field name="name">production.status.input.sales.report.wiz</field>
+			<field name="model">production.status.input.sales.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="product status Report" version="7.0">
+                    <group col="4" colspan="4">
+<!--                         <field name="year_id" required="1"/> -->
+<!--                         <label string=""/> -->
+                    </group>
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_production_status_input_sales_report_wiz">
+			<field name="name">Production status and input and sales</field>
+			<field name="res_model">production.status.input.sales.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Production status and input and sales" 
+				  parent="menu_production_report" 
+				  id="menu_production_status_input_sales_report_wiz" 
+				  action="action_production_status_input_sales_report_wiz"/>
+	</data>
+</openerp>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_list_of_engineer_service_report_wiz">
+			<field name="name">list.of.engineer.service.report.wiz.form</field>
+			<field name="model">list.of.engineer.service.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="List of Engineer Service" version="7.0">
+				    <group col="4" colspan="4">
+						<field name="start_date" required="1"/>
+						<field name="end_date" required="1"/>
+					</group>
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_list_of_engineer_service_report">
+			<field name="name">List of Engineer Service</field>
+			<field name="res_model">list.of.engineer.service.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="List of Engineer Service" 
+				  parent="menu_report_maintenance" 
+				  id="menu_list_of_engineer_service_report" 
+				  action="action_list_of_engineer_service_report"/>
+	</data>
+</openerp>

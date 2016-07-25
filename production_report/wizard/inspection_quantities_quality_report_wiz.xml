@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_inspection_quantities_quality_report_wiz">
+			<field name="name">inspection.quantities.quality.report.wiz</field>
+			<field name="model">inspection.quantities.quality.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="Inspection of Quantities/Quality Report" version="7.0">
+                    <group col="4" colspan="4">
+                        <separator string="Products"/><br/>
+                        <field name="product_ids" required="1" colspan="4" nolabel="1"/>
+                    </group>
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_inspection_quantities_quality_report_wiz">
+			<field name="name">Inspection of Quantities/Quality Report</field>
+			<field name="res_model">inspection.quantities.quality.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Inspection of Quantities/Quality Report" 
+				  parent="menu_production_report" 
+				  id="menu_inspection_quantities_quality_report_wiz" 
+				  action="action_inspection_quantities_quality_report_wiz"/>
+	</data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="view_maintenance_requests_states_report_wiz">
+			<field name="name">maintenance.requests.states.report.wiz</field>
+			<field name="model">maintenance.requests.states.report.wiz</field>
+			<field name="arch" type="xml">
+			 	<form string="Maintenance Requests States Report" version="7.0">
+                    <group col="4" colspan="4">
+                        <group>
+                            <field name="start_date" required="1" />
+                            <field name="end_date" required="1" />
+                        </group>
+                        <group>
+                            <field name="factory_id" on_change="onchange_factory_id(factory_id)" required="1"/>
+                            <field name="line_id" required="1"/>
+                        </group>
+                    </group>
+					<footer>
+                        <button name="print_report" string="Print" icon="gtk-print" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_maintenance_requests_states_report_wiz">
+			<field name="name">Maintenance Requests States Report</field>
+			<field name="res_model">maintenance.requests.states.report.wiz</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Maintenance Requests States Report" 
+				  parent="menu_report_maintenance" 
+				  id="menu_maintenance_requests_states_report_wiz" 
+				  action="action_maintenance_requests_states_report_wiz"/>
+	</data>
+</openerp>

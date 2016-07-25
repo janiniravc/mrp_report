@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+            
+		<menuitem 
+        	name="Production Report"
+            id="menu_production_report_main"
+            parent="base.menu_mrp_root"
+            sequence="15" />
+            
+         <menuitem 
+        	name="Production Report"
+            id="menu_production_report"
+            parent="menu_production_report_main"
+            sequence="15" />
+	</data>
+</openerp>

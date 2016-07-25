@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+            
+         <menuitem 
+        	name="Quality Check(QC) Report"
+            id="menu_quality_check_report"
+            parent="production_report.menu_production_report_main"
+            sequence="15" />
+            
+	</data>
+</openerp>
