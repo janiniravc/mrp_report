@@ -59,8 +59,6 @@ To Generate Production report in OpenERP
              'wizard/details_implementation_workorder_report_wiz.xml',
              'wizard/implementation_orders_factory_work_report_wiz.xml',
              'wizard/unpacking_and_quality_report_wiz.xml',
-             'wizard/production_efficiency_report_wiz.xml',
-             'wizard/cost_of_business_audits_report_wiz.xml',
         
     ],
     'application': True,

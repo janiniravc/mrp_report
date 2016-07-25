@@ -38,7 +38,5 @@ import production_status_input_sales_report
 import details_implementation_workorder_report
 import implementation_orders_factory_work_report
 import unpacking_and_quality_report
-import production_efficiency_report
-import cost_of_business_audits_report
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

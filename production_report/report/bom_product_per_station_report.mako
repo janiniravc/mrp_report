@@ -21,15 +21,14 @@
 		<h2 align="center"><b><u>Report of BOM for Product per Station</u></b></h2>
 		<br/>
 		<br/>
-		%for mrp_production in get_line(data['form']):
 		<table width="100%" cellspacing="0" cellpadding="4">
 			<tr height="30px">
 				<td width="5%" align="right" id="tableheading"><b>${_("Date")}</b></td>
-				<td width="15%" align="left" id="tableheading"><b>${formatLang(mrp_production.date_planned, date=True)}</b></td>
+				<td width="15%" align="left" id="tableheading"><b>${_("")}</b></td>
 				<td width="10%" align="left" id="tableheading"><b>${_("Product Name")}</b></td>
-				<td width="30%" align="left" id="tableheading"><b>${mrp_production.product_id.name or ''}</b></td>
+				<td width="30%" align="left" id="tableheading"><b>${_(" ")}</b></td>
 				<td width="10%" align="left" id="tableheading"><b>${_("Station")}</b></td>
-				<td width="30%" align="left" id="tableheading"><b>${mrp_production.bom_id.workcenter_id.name or ''}</b></td>
+				<td width="30%" align="left" id="tableheading"><b>${_("")}</b></td>
 			</tr>
 		</table>
 		<br/>
@@ -50,25 +49,24 @@
 				<td width="5%" align="left" id="tableheading"><b>${_("Reordering level")}</b></td>
 			</tr>
 			
-			<% cnt = 0 %>
-            %for line in mrp_production.bom_id.bom_lines:
-				<% cnt += 1 %>
+			%for i in range(5):
+				<% cnt = i+1 %>
                 <tr height="30px">
                     <td align="right" id="tableheading">${cnt}</td>
-                    <td align="left" id="tableheading">${line.part_code or ''}</td>
-                    <td align="left" id="tableheading">${line.sap_no or ''}</td>
-                    <td align="left" id="tableheading">${line.product_id.default_code or ''}</td>
-                    <td align="left" id="tableheading">${line.product_id.name or ''}</td>
-                    <td align="left" id="tableheading">${line.product_id.part_name_ar or ''}</td>
-                    <td align="left" id="tableheading">${line.product_qty}</td>
-                    <td align="left" id="tableheading">${line.product_id.uom_id.name or ''}</td>
-                    <td align="left" id="tableheading">${line.workcenter_id.name or ''}</td>
-                    <td align="left" id="tableheading">${line.task_id.name or ''}</td>
-                    <td align="left" id="tableheading">${line.task_id.code or ''}</td>
-                    <td align="left" id="tableheading">${line.safety_category or ''}</td>
-                    <td align="left" id="tableheading">${line.reordering_level or ''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
                 </tr>
             %endfor
-         %endfor   
+            
 	</body>
 </html>

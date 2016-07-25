@@ -39,7 +39,5 @@ import production_status_input_sales_report_wiz
 import details_implementation_workorder_report_wiz
 import implementation_orders_factory_work_report_wiz
 import unpacking_and_quality_report_wiz
-import production_efficiency_report_wiz
-import cost_of_business_audits_report_wiz
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

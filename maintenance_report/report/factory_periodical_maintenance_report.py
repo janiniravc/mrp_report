@@ -76,13 +76,13 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
         date_from = datetime.strptime(form['start_date'], '%Y-%m-%d')
         date_to = datetime.strptime(form['end_date'], '%Y-%m-%d')
         mro_details = []
-        total_factories = total_factories_sdg = 0
+        total_factories = 0
         add_month = 1
         if form['report_type'] == 'quarterly':
             add_month = 3
         
         while date_from <= date_to:
-            amt_factories = total_amt_factories = 0.00
+            amt_factories = 0.00
             line_vals = {
             'name': 'Cost of spare parts and depreciations',
             'month_name': date_from.strftime("%B"),
@@ -93,10 +93,6 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
             
             for factory_brw in factory:
                 for main_line in factory_brw.mainline_ids:
-                    for sub_line in main_line.subline_ids:
-                        for workcenter in sub_line.workcenter_ids:
-                                total_amt_factories += workcenter.costs_hour
-                        if total_amt_factories > 0: total_amt_factories / len(main_line.subline_ids)
                     cr.execute("""
                                 select COALESCE(sum(part_line.parts_qty*t.list_price),0.00) as main_hours
                                 from mro_task_parts_line part_line
@@ -112,13 +108,12 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
                     total_dict[main_line.name] += data[0]
             line_vals.update({
                 'total_time_factories': amt_factories,
-                'total_amt_factories': (total_amt_factories * amt_factories),
+                'total_amt_factories': 0,
                 'note': '-',
             })
             
             if amt_factories > 0:
                 total_factories += amt_factories
-                total_factories_sdg += (total_amt_factories * amt_factories)
                 mro_details.append(line_vals)
         if total_dict:
             vals = {
@@ -129,7 +124,7 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
                 vals.update({main_line: total_dict[main_line]})
             vals.update({
                 'total_time_factories': total_factories,
-                'total_amt_factories': total_factories_sdg,
+                'total_amt_factories': 0,
                 'note': '-',
             })
             mro_details.append(vals)
@@ -144,14 +139,14 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
         date_from = datetime.strptime(form['start_date'], '%Y-%m-%d')
         date_to = datetime.strptime(form['end_date'], '%Y-%m-%d')
         mro_details = []
-        total_factories = total_factories_sdg = 0
+        total_factories = 0
         add_month = 1
         if form['report_type'] == 'quarterly':
             add_month = 3
         for name in name_list:
             date_from = datetime.strptime(form['start_date'], '%Y-%m-%d')
             while date_from <= date_to:
-                amt_factories = total_amt_factories = 0.00
+                amt_factories = 0.00
                 line_vals = {
                 'name': name,
                 'month_name': date_from.strftime("%B"),
@@ -163,10 +158,6 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
                 
                 for factory_brw in factory:
                     for main_line in factory_brw.mainline_ids:
-                        for sub_line in main_line.subline_ids:
-                            for workcenter in sub_line.workcenter_ids:
-                                total_amt_factories += workcenter.costs_hour
-                        if total_amt_factories > 0: total_amt_factories / len(main_line.subline_ids)
                         if name == 'Preventive maintenance hours':
                             cr.execute("""select COALESCE(sum(maintenance_time),0.00) as main_hours 
                                         from mro_order
@@ -182,14 +173,14 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
                         total_dict[main_line.name] += data[0]
                 line_vals.update({
                     'total_time_factories': amt_factories,
-                    'total_amt_factories': (total_amt_factories * amt_factories),
+                    'total_amt_factories': 0,
                     'note': '-',
                 })
                 
                 if amt_factories > 0:
                     total_factories += amt_factories
-                    total_factories_sdg += (total_amt_factories * amt_factories)
                     mro_details.append(line_vals)
+        print "::total_dict:::",total_dict
         if total_dict:
             vals = {
                 'name': 'Total factory',
@@ -199,7 +190,7 @@ class factory_periodical_maintenance_report(report_sxw.rml_parse):
                 vals.update({main_line: total_dict[main_line]})
             vals.update({
                 'total_time_factories': total_factories,
-                'total_amt_factories': total_factories_sdg,
+                'total_amt_factories': 0,
                 'note': '-',
             })
             mro_details.append(vals)

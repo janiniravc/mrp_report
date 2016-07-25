@@ -76,10 +76,6 @@
 			    <% material_obj = order.parts_moved_lines %>
 			    <% material_rowspan = len(order.parts_moved_lines) %>
 			    <% cnt = 0 %>
-			    <% cost_per_hour = 0 %>
-			    %if order.subline_id and order.subline_id.workcenter_ids:
-			         <% cost_per_hour = order.subline_id.workcenter_ids[0].costs_hour or 0 %>
-			    %endif
 			    %for material in order.parts_moved_lines:
 			    	% if cnt == 0: 
 						<tr height="30px">
@@ -94,7 +90,7 @@
 			                <td align="right" id="tabledata" width="15%" rowspan="${material_rowspan}">${formatLang(order.maintenance_time)}</td>
 			                <td align="left" id="tabledata" width="15%" rowspan="${material_rowspan}">${formatLang(order.done_date or '', date_time=True)}</td>
 			                <td align="right" id="tabledata" width="15%" rowspan="${material_rowspan}">${order.eng_name_id and order.eng_name_id.name or ''}</td>
-			                <td align="left" id="tabledata" width="15%" rowspan="${material_rowspan}">${cost_per_hour*order.maintenance_time}</td>
+			                <td align="left" id="tabledata" width="15%" rowspan="${material_rowspan}">(0.00)</td>
 			                <td align="left" id="tabledata" width="15%" rowspan="${material_rowspan}">${formatLang(material.product_qty * material.product_id.standard_price, dp='Account')}</td>
 			            </tr>
 	            	%endif

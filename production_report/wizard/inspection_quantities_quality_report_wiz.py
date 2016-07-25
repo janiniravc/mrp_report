@@ -26,9 +26,9 @@ from openerp.tools.translate import _
 class inspection_quantities_quality_report_wiz(osv.osv_memory):
     _name = 'inspection.quantities.quality.report.wiz'
     
-    _columns = {
-        'product_ids': fields.many2many('product.product','wiz_inspection_quality_product_rel','wiz_id','product_id','Products'),
-    }
+#     _columns = {
+#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
+#     }
     
 
     def print_report(self, cr, uid, ids, context=None):

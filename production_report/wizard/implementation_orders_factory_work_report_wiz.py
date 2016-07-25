@@ -26,15 +26,10 @@ from openerp.tools.translate import _
 class implementation_orders_factory_work_report_wiz(osv.osv_memory):
     _name = 'implementation.orders.factory.work.report.wiz'
     
-    _columns = {
-        'start_date': fields.date('Start Date'),
-        'end_date': fields.date('End Date'),
-    }
+#     _columns = {
+#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
+#     }
     
-    _defaults = {
-            'start_date': lambda *a: time.strftime('%Y-%m-01'),
-            'end_date': lambda *a: time.strftime('%Y-%m-%d'),
-    }    
 
     def print_report(self, cr, uid, ids, context=None):
         if context is None:

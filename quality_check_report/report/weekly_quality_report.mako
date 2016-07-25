@@ -71,6 +71,8 @@
                     <td align="left" id="tableheading">${''}</td>
                     <td align="left" id="tableheading">${''}</td>
                     <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
+                    <td align="left" id="tableheading">${''}</td>
                 </tr>
             %endfor
 		<table>

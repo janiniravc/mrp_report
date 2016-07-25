@@ -26,15 +26,9 @@ from openerp.tools.translate import _
 class ecn_report_wiz(osv.osv_memory):
     _name = 'ecn.report.wiz'
     
-    _columns = {
-        'start_date': fields.date('Start Date'),
-        'end_date': fields.date('End Date'),
-    }
-    
-    _defaults = {
-            'start_date': lambda *a: time.strftime('%Y-%m-01'),
-            'end_date': lambda *a: time.strftime('%Y-%m-%d'),
-    }
+#     _columns = {
+#         'year_id': fields.many2one('sc.mrp.calendar.year','Year'),
+#     }
     
 
     def print_report(self, cr, uid, ids, context=None):
