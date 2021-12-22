@@ -33,6 +33,6 @@ class ResCompany(models.Model):
     step2 = fields.Boolean('Step2')
     step3 = fields.Boolean('Step3')
 
- def write(self, vals):
+  def write(self, vals):
         print("\n::write:::", vals)
         return super(ResCompany, self).write(vals)
