@@ -18,7 +18,7 @@ class ResCompany(models.Model):
         ('public_limited_company', 'Public Limited Company'),
         ('sole_trader', 'Sole Trader'),
         ('partnership', 'Partnership'),
-        ('private_limited_company', 'Private Limited Company'), ], string='Business Type')
+        ('private_limited_company', 'Private Limited Company'), ], string1='Business Type')
     geographies_type = fields.Selection([
         ('europe', 'Europe (GDPR)'),
         ('uk', 'UK'),
