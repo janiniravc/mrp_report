@@ -8,7 +8,7 @@ import base64
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    refund_html_content = fields.Html(string='Refund Policy')
+    refund_html_content = fields.Html(string='Refund Policy123')
     privacy_html_content = fields.Html(string='Privacy Policy')
     terms_html_content = fields.Html(string='Terms of Service')
     shipping_html_content = fields.Html(string='Shipping Policy')
